@@ -24,16 +24,34 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _biggerFont = TextStyle(fontSize: 18.0);
+  //final _biggerFont = TextStyle(fontSize: 18.0);
+  Color _bgColor = Colors.white;
+
+  void _setColor() {
+    setState(() {
+      if (_bgColor == Colors.white) {
+        _bgColor = Colors.red;
+      } else {
+        _bgColor = Colors.white;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Startup Name Generator")),
-        body: _buildSuggestions());
+      appBar: AppBar(title: Text("Startup Name Generator")),
+      body: _buildSuggestions(_bgColor),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _setColor,
+        child: Icon(
+          Icons.brush,
+        ),
+      ),
+    );
   }
 
-  Widget _buildSuggestions() {
+  Widget _buildSuggestions(Color bgColor) {
     return ListView.builder(
         padding: EdgeInsets.all(16.0),
         itemBuilder: (context, i) {
@@ -44,15 +62,18 @@ class _RandomWordsState extends State<RandomWords> {
             _suggestions.addAll(generateWordPairs().take(10));
           }
 
-          return _buildRow(_suggestions[index]);
+          return _buildRow(_suggestions[index], bgColor);
         });
   }
 
-  Widget _buildRow(WordPair suggestion) {
+  Widget _buildRow(WordPair suggestion, Color bgColor) {
     return ListTile(
       title: Text(
         suggestion.asPascalCase,
-        style: _biggerFont,
+        style: TextStyle(
+          fontSize: 16.0,
+          backgroundColor: bgColor,
+        ),
       ),
     );
   }
