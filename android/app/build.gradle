@@ -41,6 +41,7 @@ android {
         applicationId "com.dognidon.corp.startup_namer"
         minSdkVersion 21
         targetSdkVersion 28
+        //versionCode 1
         versionCode System.getenv('APPCENTER_BUILD_ID').toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner" 
